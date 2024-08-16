@@ -41,15 +41,14 @@ int linklist_show(linklist H)
         return -1;
     }
     p = H;
-    while (p->next  != NULL)
+    while (p->next != NULL)
     {
         printf("%d ", p->next->data);
-        p=p->next;
+        p = p->next;
     }
     puts("\n");
     return 0;
 }
-
 
 /*----------------------------------------------------------------
 函数功能：链表的尾部插入
@@ -62,8 +61,8 @@ int linklist_show(linklist H)
 ------------------------------------------------------------------*/
 int linklist_tail_insert(linklist H, data_t data)
 {
-    //create a new node
-    linklist p,q;
+    // create a new node
+    linklist p, q;
     if ((p = (linklist)malloc(sizeof(listnode))) == NULL)
     {
         printf("malloc failure\n");
@@ -71,13 +70,13 @@ int linklist_tail_insert(linklist H, data_t data)
     }
     p->data = data;
     p->next = NULL;
-    //find the tail node
-    q=H;
+    // find the tail node
+    q = H;
     while (q->next != NULL)
     {
         q = q->next;
     }
-    //insert data
+    // insert data
     q->next = p;
     return 0;
 }
@@ -101,7 +100,7 @@ linklist linklist_locate(linklist H, int pos)
     {
         return H;
     }
-    
+
     linklist p;
     p = H;
     for (int i = -1; i < pos; i++)
@@ -114,9 +113,7 @@ linklist linklist_locate(linklist H, int pos)
         }
     }
     return p;
-    
 }
-
 
 /*----------------------------------------------------------------
 函数功能：链表的中间插入
@@ -135,20 +132,20 @@ int linklist_insert(linklist H, data_t data, int pos)
         printf("H is NULL\n");
         return -1;
     }
-    
-    linklist p,q;
-    p = linklist_locate(H, pos-1);
+
+    linklist p, q;
+    p = linklist_locate(H, pos - 1);
     if (p == NULL)
     {
         printf("pos is invalid\n");
         return -1;
     }
-    
-    if((q = linklist_create())==NULL)
-        {
-            printf("malloc error\n");
-            return -1;
-        }
+
+    if ((q = linklist_create()) == NULL)
+    {
+        printf("malloc error\n");
+        return -1;
+    }
 
     q->data = data;
     q->next = p->next;
@@ -156,7 +153,6 @@ int linklist_insert(linklist H, data_t data, int pos)
 
     return 0;
 }
-
 
 /*----------------------------------------------------------------
 函数功能：链表的单节点的删除
@@ -181,9 +177,8 @@ int linklist_delete(linklist H, int pos)
         return -1;
     }
 
-
-    linklist p,q;
-    p = linklist_locate(H, pos-1);
+    linklist p, q;
+    p = linklist_locate(H, pos - 1);
     if (p == NULL)
     {
         return -1;
@@ -194,15 +189,13 @@ int linklist_delete(linklist H, int pos)
         return -1;
     }
 
-    
     q = p->next;
     p->next = q->next;
-    
+
     free(q);
     q = NULL;
     return 0;
 }
-
 
 /*----------------------------------------------------------------
 函数功能：链表的释放
@@ -218,20 +211,19 @@ int linklist_free(linklist H)
     {
         return -1;
     }
-    
+
     linklist p;
     p = H;
 
     while (H != NULL)
     {
         p = H;
-        printf("free:%d ",p->data);
+        printf("free:%d ", p->data);
         free(p);
         H = H->next;
     }
     return 0;
 }
-
 
 /*----------------------------------------------------------------
 函数功能：链表的反转
@@ -243,9 +235,9 @@ int linklist_free(linklist H)
 ------------------------------------------------------------------*/
 int linklist_reverse(linklist H)
 {
-    linklist p,q;
+    linklist p, q;
 
-    if(H == NULL)
+    if (H == NULL)
     {
         printf("H is NULL\n");
         return -1;
@@ -254,7 +246,7 @@ int linklist_reverse(linklist H)
     {
         return -1;
     }
-    
+
     p = H->next->next;
     H->next->next = NULL;
 
@@ -266,8 +258,8 @@ int linklist_reverse(linklist H)
         q->next = H->next;
         H->next = q;
     }
-    
-    return 0;    
+
+    return 0;
 }
 
 /*----------------------------------------------------------------
@@ -280,7 +272,7 @@ int linklist_reverse(linklist H)
 ------------------------------------------------------------------*/
 linklist list_adjmax(linklist H, data_t *sum)
 {
-    if(H == NULL)
+    if (H == NULL)
     {
         printf("H is NULL\n");
         return NULL;
@@ -290,8 +282,8 @@ linklist list_adjmax(linklist H, data_t *sum)
         printf("H is single\n");
         return NULL;
     }
-    
-    linklist p,q,r;
+
+    linklist p, q, r;
     q = H->next;
     p = H->next->next;
     r = q;
@@ -309,7 +301,6 @@ linklist list_adjmax(linklist H, data_t *sum)
     return r;
 }
 
-
 /*----------------------------------------------------------------
 函数功能：两个有序链表的合并并存入1中
 入口参数:
@@ -321,12 +312,12 @@ linklist list_adjmax(linklist H, data_t *sum)
 ------------------------------------------------------------------*/
 int linklist_merge(linklist H1, linklist H2)
 {
-    if (H1 == NULL || H2 == NULL) 
+    if (H1 == NULL || H2 == NULL)
     {
         printf("H1 or H2 is NULL\n");
         return -1;
     }
-    linklist p,q,r;
+    linklist p, q, r;
     p = H1->next;
     q = H2->next;
     r = H1;
@@ -354,7 +345,6 @@ int linklist_merge(linklist H1, linklist H2)
         {
             r->next = p;
         }
-        
     }
     return 0;
 }

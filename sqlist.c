@@ -5,15 +5,10 @@ C文件功能：线性表的基本功能
             2）插入删除等运算耗时，且存在元素在存储器中成片移动的现象
 ------------------------------------------------------------------*/
 
-
-
 #include "sqlist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-
 
 /*----------------------------------------------------------------
 函数功能：创建线性表
@@ -31,10 +26,10 @@ sqlink list_create()
         printf("list malloc failure\n");
         return L;
     }
-    //initialize to 0
+    // initialize to 0
     memset(L, 0, sizeof(sqlist));
     L->last = -1;
-    
+
     return L;
 }
 
@@ -56,7 +51,6 @@ int list_free(sqlink L)
     L = NULL;
     return 0;
 }
-
 
 /*----------------------------------------------------------------
 函数功能：将线性表清零
@@ -105,8 +99,8 @@ int list_length(sqlink L)
     {
         return -1;
     }
-    
-    return (L->last+1);
+
+    return (L->last + 1);
 }
 
 /*----------------------------------------------------------------
@@ -142,20 +136,20 @@ int list_locate(sqlink L, data_t value)
 ------------------------------------------------------------------*/
 int list_insert(sqlink L, data_t value, int pos)
 {
-    if (L->last > N-1)
-    {    
+    if (L->last > N - 1)
+    {
         printf("list full\n");
         return -1;
     }
-    if (pos <0 || pos > L->last+1)
+    if (pos < 0 || pos > L->last + 1)
     {
         printf("list pos error\n");
         return -1;
     }
-    
+
     for (int i = L->last; i >= pos; i--)
     {
-        L->data[i+1] = L->data[i];
+        L->data[i + 1] = L->data[i];
     }
     L->data[pos] = value;
     L->last++;
@@ -204,23 +198,21 @@ int list_delete(sqlink L, int pos)
         printf("list is empty\n");
         return -1;
     }
-    if (L->last > N-1)
-    {    
+    if (L->last > N - 1)
+    {
         printf("list full\n");
         return -1;
     }
-    if (pos <0 || pos > L->last+1)
+    if (pos < 0 || pos > L->last + 1)
     {
         printf("list pos error\n");
         return -1;
     }
 
-
     for (int i = pos; i <= L->last; i++)
     {
-        L->data[i] = L->data[i+1];
+        L->data[i] = L->data[i + 1];
     }
-
 
     L->last--;
     return 0;
@@ -248,7 +240,7 @@ int list_merge(sqlink L1, sqlink L2)
         ret = list_locate(L1, L2->data[i]);
         if (ret == -1)
         {
-            if (list_insert(L1, L2->data[i], L1->last+1) == -1)
+            if (list_insert(L1, L2->data[i], L1->last + 1) == -1)
             {
                 return -1;
             }
@@ -272,25 +264,23 @@ int list_purge(sqlink L)
         printf("list empty\n");
         return -1;
     }
-    int i = 1,j = 0;
+    int i = 1, j = 0;
     while (i <= L->last)
     {
-        j = i-1;
+        j = i - 1;
         while (j >= 0)
         {
             if (L->data[i] == L->data[j])
             {
-                list_delete(L,i);
+                list_delete(L, i);
                 break;
             }
             else
-            j--;
-            if (j<0)
+                j--;
+            if (j < 0)
             {
                 i++;
             }
         }
-        
     }
-    
 }
